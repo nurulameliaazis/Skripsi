@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.userriletion.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.example.userriletion.onboarding.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.userriletion.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_akunFragment"
+            app:destination="@id/akunFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.example.userriletion.ScanFragment"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_solusiFragment"
+            app:destination="@id/solusiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solusiFragment"
+        android:name="com.example.userriletion.SolusiFragment"
+        android:label="fragment_solusi"
+        tools:layout="@layout/fragment_solusi" >
+        <action
+            android:id="@+id/action_solusiFragment_to_akunFragment"
+            app:destination="@id/akunFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/akunFragment"
+        android:name="com.example.userriletion.AkunFragment"
+        android:label="fragment_akun"
+        tools:layout="@layout/fragment_akun" >
+        <action
+            android:id="@+id/action_akunFragment_to_editprofile1Fragment"
+            app:destination="@id/editprofile1Fragment" />
+        <action
+            android:id="@+id/action_akunFragment_to_katasandibaruFragment"
+            app:destination="@id/katasandibaruFragment" />
+        <action
+            android:id="@+id/action_akunFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editprofile1Fragment"
+        android:name="com.example.userriletion.Editprofile1Fragment"
+        android:label="fragment_editprofile1"
+        tools:layout="@layout/fragment_editprofile1" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.userriletion.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_lupakatasandiFragment"
+            app:destination="@id/lupakatasandiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.userriletion.login.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lupakatasandiFragment"
+        android:name="com.example.userriletion.login.LupakatasandiFragment"
+        android:label="fragment_lupakatasandi"
+        tools:layout="@layout/fragment_lupakatasandi" >
+        <action
+            android:id="@+id/action_lupakatasandiFragment_to_katasandibaruFragment"
+            app:destination="@id/katasandibaruFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/katasandibaruFragment"
+        android:name="com.example.userriletion.login.KatasandibaruFragment"
+        android:label="fragment_katasandibaru"
+        tools:layout="@layout/fragment_katasandibaru" />
+</navigation>

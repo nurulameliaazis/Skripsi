@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/scanFragment"
+        android:icon="@drawable/ic_scan"
+        android:title="Scan" />
+    <item
+        android:id="@+id/solusiFragment"
+        android:icon="@drawable/ic_solusi"
+        android:title="Solusi" />
+    <item
+        android:id="@+id/akunFragment"
+        android:icon="@drawable/ic_akun"
+        android:title="Akun" />
+
+
+
+</menu>

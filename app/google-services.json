@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "92891314524",
+    "project_id": "riletion-98ae0",
+    "storage_bucket": "riletion-98ae0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92891314524:android:b62e68d7b810e3c338a999",
+        "android_client_info": {
+          "package_name": "com.example.userriletion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92891314524-diicjlp63k2dpfuoi0jegipd4o3dd05v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9hl-jSKa2XZ9iM42KHEcAkkbjZbX_APw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92891314524-diicjlp63k2dpfuoi0jegipd4o3dd05v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92891314524:android:b5c580f81306e6b438a999",
+        "android_client_info": {
+          "package_name": "com.example.userriletion.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92891314524-diicjlp63k2dpfuoi0jegipd4o3dd05v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9hl-jSKa2XZ9iM42KHEcAkkbjZbX_APw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92891314524-diicjlp63k2dpfuoi0jegipd4o3dd05v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

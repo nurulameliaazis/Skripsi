@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UserRiletion</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="run_diagnosis">Run Diagnosis</string>
+    <string name="katasandi">Kata Sandi Anda</string>
+    <string name="nama_pengguna">Nama Pengguna Anda</string>
+    <string name="no_telp">Masukkan No Telephone Anda</string>
+</resources>
