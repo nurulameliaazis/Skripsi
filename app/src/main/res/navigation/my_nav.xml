@@ -32,11 +32,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.userriletion.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_akunFragment"
-            app:destination="@id/akunFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/scanFragment"
         android:name="com.example.userriletion.ScanFragment"
@@ -50,11 +46,7 @@
         android:id="@+id/solusiFragment"
         android:name="com.example.userriletion.SolusiFragment"
         android:label="fragment_solusi"
-        tools:layout="@layout/fragment_solusi" >
-        <action
-            android:id="@+id/action_solusiFragment_to_akunFragment"
-            app:destination="@id/akunFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_solusi" />
     <fragment
         android:id="@+id/akunFragment"
         android:name="com.example.userriletion.AkunFragment"
@@ -86,9 +78,6 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_lupakatasandiFragment"
-            app:destination="@id/lupakatasandiFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -113,4 +102,9 @@
         android:name="com.example.userriletion.login.KatasandibaruFragment"
         android:label="fragment_katasandibaru"
         tools:layout="@layout/fragment_katasandibaru" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.userriletion.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

@@ -8,21 +8,6 @@
 
 
     <TextView
-        android:id="@+id/textView20"
-        android:layout_width="258dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:gravity="start"
-        android:text="Daftar Akun"
-        android:textColor="@color/purple_200"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView21"
         android:layout_width="228dp"
         android:layout_height="40dp"
@@ -34,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView22"
@@ -53,38 +38,40 @@
         android:layout_height="20dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="16dp"
-        android:text="Nama Lengkap"
+        android:text="Email"
         android:textColor="@color/purple_200"
         android:textSize="15dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="352dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.353"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittextemail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/custom_button3"
-            android:hint="@string/nama_pengguna" />
+            android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/textView25"
         android:layout_width="107dp"
         android:layout_height="20dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="24dp"
         android:text="Kata Sandi"
         android:textColor="@color/purple_200"
         android:textSize="15dp"
@@ -92,50 +79,67 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="350dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Pass"
+        android:layout_width="357dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
+        android:ems="3"
         android:inputType="textPassword"
-        android:hint="@string/katasandi"
-        android:background="@drawable/custom_button3"
-        android:drawableEnd="@drawable/ic_eye"
-        android:padding="12dp"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView25" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittextpass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_button3"
+            android:hint="@string/katasandi" />
+    </com.google.android.material.textfield.TextInputLayout>
+h
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/textView24"
         android:layout_width="107dp"
         android:layout_height="20dp"
-        android:layout_marginTop="24dp"
-        android:text="Email"
+        android:layout_marginTop="128dp"
+        android:text="Ulangi Kata Sandi"
         android:textColor="@color/purple_200"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="357dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button3"
-        android:ems="10"
-        android:inputType="textEmailAddress"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password"
+        android:layout_width="395dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="4dp"
+        android:ems="3"
+        android:inputType="textPassword"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittextpassword"
+            android:layout_width="363dp"
+            android:layout_height="55dp"
+            android:background="@drawable/custom_button3"
+            android:hint="@string/pass" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttondaftar"
@@ -162,7 +166,7 @@
         app:layout_constraintVertical_bias="0.042" />
 
     <TextView
-        android:id="@+id/buttonmasuk"
+        android:id="@+id/textViewmasuk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Masuk Sekarang "

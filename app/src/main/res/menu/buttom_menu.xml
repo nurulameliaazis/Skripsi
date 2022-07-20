@@ -10,13 +10,18 @@
         android:icon="@drawable/ic_scan"
         android:title="Scan" />
     <item
-        android:id="@+id/solusiFragment"
-        android:icon="@drawable/ic_solusi"
-        android:title="Solusi" />
+    android:id="@+id/solusiFragment"
+    android:icon="@drawable/ic_solusi"
+    android:title="Solusi" />
     <item
-        android:id="@+id/akunFragment"
-        android:icon="@drawable/ic_akun"
-        android:title="Akun" />
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/ic_history"
+        android:title="History"/>
+
+<!--    <item-->
+<!--        android:id="@+id/akunFragment"-->
+<!--        android:icon="@drawable/ic_akun"-->
+<!--        android:title="Akun" />-->
 
 
 
