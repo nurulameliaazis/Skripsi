@@ -133,15 +133,14 @@ class ScanFragment : Fragment() {
         val now = Date()
         val fileName = formatter.format(now)
         val storageReference = FirebaseStorage.getInstance().getReference("Image/$fileName")
-
-
                 storageReference.putFile(ImageUri).
                 addOnSuccessListener {
                     binding.image.setImageURI(null)
                     Toast.makeText(requireActivity(), "Sukses Unggah Foto", Toast.LENGTH_SHORT)
                         .show()
                     if (progressDialog.isShowing) progressDialog.dismiss()
-                    findNavController().navigate(R.id.action_scanFragment_to_solusiFragment)
+                    val action = ScanFragmentDirections.actionScanFragmentToSolusiFragment(fileName)
+                    findNavController().navigate(action)
 
                 }.addOnFailureListener{
                     if (progressDialog.isShowing) progressDialog.dismiss()

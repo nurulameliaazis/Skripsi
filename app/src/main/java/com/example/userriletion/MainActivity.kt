@@ -16,14 +16,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-
         val buttonNavigationView = findViewById<BottomNavigationView>  (R.id.bottomNavigationView)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment, R.id.scanFragment, R.id.solusiFragment, R.id.historyFragment ->
+                R.id.homeFragment, R.id.scanFragment, R.id.historyFragment ->
                     buttonNavigationView.visibility= View.VISIBLE
 
                 else ->  buttonNavigationView.visibility= View.GONE

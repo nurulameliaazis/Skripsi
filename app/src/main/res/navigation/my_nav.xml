@@ -46,7 +46,14 @@
         android:id="@+id/solusiFragment"
         android:name="com.example.userriletion.SolusiFragment"
         android:label="fragment_solusi"
-        tools:layout="@layout/fragment_solusi" />
+        tools:layout="@layout/fragment_solusi" >
+        <argument
+            android:name="fileName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_solusiFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/akunFragment"
         android:name="com.example.userriletion.AkunFragment"
@@ -106,5 +113,18 @@
         android:id="@+id/historyFragment"
         android:name="com.example.userriletion.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_detailHistoryFragment"
+            app:destination="@id/detailHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailHistoryFragment"
+        android:name="com.example.userriletion.DetailHistoryFragment"
+        android:label="fragment_detail_history"
+        tools:layout="@layout/fragment_detail_history" >
+        <argument
+            android:name="history"
+            app:argType="com.example.userriletion.model.History" />
+    </fragment>
 </navigation>
