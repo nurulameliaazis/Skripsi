@@ -45,23 +45,12 @@
         android:background="@drawable/custom_button4"
         android:text="Ambil Gambar"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/uploadimage"
+        app:layout_constraintBottom_toTopOf="@+id/selectimage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/uploadimage"
-        android:layout_width="238dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="152dp"
-        android:background="@drawable/custom_button4"
-        android:text="Unggah Gambar"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/selectimage"

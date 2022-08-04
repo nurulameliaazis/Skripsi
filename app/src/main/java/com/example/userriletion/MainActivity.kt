@@ -16,16 +16,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        val buttonNavigationView = findViewById<BottomNavigationView>  (R.id.bottomNavigationView)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val buttonNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment, R.id.scanFragment, R.id.historyFragment ->
-                    buttonNavigationView.visibility= View.VISIBLE
+                    buttonNavigationView.visibility = View.VISIBLE
 
-                else ->  buttonNavigationView.visibility= View.GONE
+                else -> buttonNavigationView.visibility = View.GONE
             }
         }
 
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200) {
@@ -47,10 +49,11 @@ class MainActivity : AppCompatActivity() {
                 Activity.RESULT_CANCELED -> Toast.makeText(
                     this,
                     "GPS is r is required",
-                            Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT
                 ).show()
+
             }
         }
     }
-
 }
+
