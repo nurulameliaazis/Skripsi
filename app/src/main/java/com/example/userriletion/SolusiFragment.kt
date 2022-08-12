@@ -67,7 +67,7 @@ class SolusiFragment : Fragment() {
                         .collection("histories").document(fileName).set(history)
 
                 addHistory.addOnSuccessListener {
-                    binding.textViewjenis.text = jenis_gangguan
+                    binding.textViewjenisgejala.text = jenis_gangguan
                     binding.textViewsolusi.text = solusi
                     binding.textViewgangguan.text = gejala
                     Glide.with(requireContext()).load(imageUrl).into(binding.imageView5)
