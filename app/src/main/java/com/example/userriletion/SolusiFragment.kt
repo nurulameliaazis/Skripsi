@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.userriletion.databinding.FragmentSolusiBinding
 import com.example.userriletion.model.History
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -22,7 +22,7 @@ class SolusiFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var database: FirebaseFirestore
     private val args: SolusiFragmentArgs by navArgs()
-
+    val images = arrayOf("val_batch0_pred.jpg","val_batch1_pred.jpg","val_batch2_labels.jpg","val_batch2_pred.jpg")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +43,7 @@ class SolusiFragment : Fragment() {
 
     private fun getDataFromFirebase() {
         database = FirebaseFirestore.getInstance()
-        val fileName = args.fileName
+        val fileName = images.random()
         val firebaseStorage =
             FirebaseStorage.getInstance().getReference("Image/$fileName").downloadUrl
 
@@ -70,6 +70,8 @@ class SolusiFragment : Fragment() {
                     binding.textViewjenis.text = jenis_gangguan
                     binding.textViewsolusi.text = solusi
                     binding.textViewgangguan.text = gejala
+                    Glide.with(requireContext()).load(imageUrl).into(binding.imageView5)
+
                 }.addOnFailureListener {
                     Toast.makeText(
                         requireContext(),
