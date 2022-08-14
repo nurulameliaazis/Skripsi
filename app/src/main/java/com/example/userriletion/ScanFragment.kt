@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -92,13 +93,24 @@ class ScanFragment : Fragment() {
                                 it
                             )
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                            resultLauncher.launch(takePictureIntent)
+//                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
                         }
                     }
                 }
             }
         }
     }
+
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageBitmap = BitmapFactory.decodeFile(photoFile?.absolutePath)
+            binding.image.setImageBitmap(imageBitmap)
+            ImageUri = Uri.fromFile(File(photoFile?.absolutePath))
+            runObjectDetection(imageBitmap)
+        }
+    }
+
 
     @SuppressLint("SimpleDateFormat")
     private fun createImageFile(): File? {
@@ -109,19 +121,6 @@ class ScanFragment : Fragment() {
             ".jpg",
             storageDir
         )
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data !=null) {
-            val imageBitmap = BitmapFactory.decodeFile(photoFile?.absolutePath)
-            binding.image.setImageBitmap(imageBitmap)
-            ImageUri = Uri.fromFile(File(photoFile?.absolutePath))
-            runObjectDetection(imageBitmap)
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-
-
     }
 
     private fun runObjectDetection(bitmap: Bitmap) {
