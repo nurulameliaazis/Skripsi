@@ -27,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.task.vision.detector.ObjectDetector
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -34,18 +35,12 @@ import java.util.*
 
 
 class ScanFragment : Fragment() {
-    companion object {
-        const val TAG = "TFLite -ODP"
-        const val REQUEST_IMAGE_CAPTURE = 1
-        const val REQUEST_CODE = 42
-    }
-
     private var _binding: FragmentScanBinding? = null
     private val binding get() = _binding!!
     private var photoFile: File? = null
     private lateinit var ImageUri: Uri
     private var imgWithResult: Bitmap? = null
-
+    private var data: ByteArray? = null
 
 
     override fun onCreateView(
@@ -68,7 +63,12 @@ class ScanFragment : Fragment() {
         }
 
         binding.uploadimage.setOnClickListener {
-            uploadImage()
+            imgWithResult?.let {
+                uploadImage()
+            } ?: run {
+                Toast.makeText(requireContext(), "Ambil gambar terlebih dahulu!", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
@@ -150,14 +150,18 @@ class ScanFragment : Fragment() {
             DetectionResult(it.boundingBox, text)
         }
 
-        Log.d("ScanFragment", "INI NILAINYA $resultToDisplay")
-
         imgWithResult = drawDetectionResult(bitmap, resultToDisplay)
         lifecycleScope.launch(Dispatchers.Main) {
             context?.let {
                 Glide.with(it).load(imgWithResult).into(binding.image)
             }
         }
+
+        val imageBitmapDetected = imgWithResult
+        val baos = ByteArrayOutputStream()
+        imageBitmapDetected?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        data = baos.toByteArray()
+
     }
 
     private fun drawDetectionResult(
@@ -209,7 +213,7 @@ class ScanFragment : Fragment() {
         val fileName = formatter.format(now)
         val storageReference = FirebaseStorage.getInstance().getReference("Image/$fileName")
 
-        storageReference.putFile(ImageUri).
+        storageReference.putBytes(data!!).
         addOnSuccessListener {
             Toast.makeText(requireActivity(), "Sukses Unggah Foto", Toast.LENGTH_SHORT).show()
             if (progressDialog.isShowing) progressDialog.dismiss()

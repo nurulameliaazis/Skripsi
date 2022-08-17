@@ -21,7 +21,7 @@ class SolusiFragment : Fragment() {
     private var _binding: FragmentSolusiBinding? = null
     private val binding get() = _binding!!
     private lateinit var database: FirebaseFirestore
-//    private val args: SolusiFragmentArgs by navArgs()
+    private val args: SolusiFragmentArgs by navArgs()
     val images = arrayOf("brownspot.jpeg", "brownspot4.jpegn@ma")
     val solution = arrayOf("bacterial-leaf", "brown-spot", "leaf-blast")
 
@@ -46,14 +46,15 @@ class SolusiFragment : Fragment() {
     private fun getDataFromFirebase() {
         database = FirebaseFirestore.getInstance()
         val solusiArray = solution.random()
-        val fileName = images.random()
+        val fileName = args.fileName
+//        val fileName = images.random()
+
+        val user = Firebase.auth.currentUser?.uid //Mendapatkan ID User
+        val docRef = database.collection("riletion_collection").document(solusiArray)
         val firebaseStorage =
             FirebaseStorage.getInstance().getReference("Image/$fileName").downloadUrl
 
-
         firebaseStorage.addOnSuccessListener { imageUrl ->
-            val user = Firebase.auth.currentUser?.uid //Mendapatkan ID User
-            val docRef = database.collection("riletion_collection").document(solusiArray)
             docRef.get().addOnSuccessListener { document ->
                 val gejala = document.data?.get("gejala").toString()
                 val jenis_gangguan = document.data?.get("jenis-gangguan").toString()
@@ -63,7 +64,7 @@ class SolusiFragment : Fragment() {
                     gejala = gejala,
                     jenis_gangguan = jenis_gangguan,
                     solusi = solusi,
-                    imageUrl = imageUrl.toString()
+                    imageUrl = fileName
                 )
 
                 val addHistory =
@@ -74,7 +75,7 @@ class SolusiFragment : Fragment() {
                     binding.textViewjenisgejala.text = jenis_gangguan
                     binding.textViewsolusi.text = solusi
                     binding.textViewgangguan.text = gejala
-                    Glide.with(requireContext()).load(imageUrl).into(binding.imageView5)
+                Glide.with(requireContext()).load(imageUrl).into(binding.imageView5)
 
                 }.addOnFailureListener {
                     Toast.makeText(
@@ -87,6 +88,7 @@ class SolusiFragment : Fragment() {
                 Toast.makeText(requireActivity(), "error $exception", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
 }
