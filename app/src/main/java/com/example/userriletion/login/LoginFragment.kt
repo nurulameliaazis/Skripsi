@@ -13,10 +13,10 @@ import com.example.userriletion.R
 import com.example.userriletion.databinding.FragmentLoginBinding
 import com.example.userriletion.util.PermissionUtility
 import com.google.firebase.auth.FirebaseAuth
-import com.vmadalin.easypermissions.EasyPermissions
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 
-
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -41,22 +41,28 @@ class LoginFragment : Fragment() {
             val password = binding.edittextpassw.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Toast.makeText(requireActivity(), "Sukses", Toast.LENGTH_SHORT)
-                                .show()
-                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 
-                        } else {
-                            Toast.makeText(
-                                requireActivity(),
-                                "Email dan Kata sandi Tidak Sesuai",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                if (checkPermission()) {
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Toast.makeText(requireActivity(), "Sukses", Toast.LENGTH_SHORT)
+                                    .show()
+                                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+                            } else {
+                                Toast.makeText(
+                                    requireActivity(),
+                                    "Email dan Kata sandi Tidak Sesuai",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
                         }
-                    }
+                } else {
+                    Toast.makeText(requireContext(), "Anda harus memberikan akses lokasi kepada aplikasi", Toast.LENGTH_SHORT).show()
+                }
+
             } else {
                 Toast.makeText(requireActivity(), "Tidak Boleh Kosong", Toast.LENGTH_SHORT)
                     .show()
@@ -70,7 +76,7 @@ class LoginFragment : Fragment() {
 //        }
     }
 
-    private fun checkPermission() {
+    private fun checkPermission() : Boolean {
         if (!PermissionUtility.isPermissionGranted(requireContext())) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 EasyPermissions.requestPermissions(
@@ -81,6 +87,7 @@ class LoginFragment : Fragment() {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 )
+                return false
             } else {
                 EasyPermissions.requestPermissions(
                     this,
@@ -89,8 +96,30 @@ class LoginFragment : Fragment() {
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
+                return false
             }
         }
+        return true
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        } else {
+            checkPermission()
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        Toast.makeText(requireContext(), "Permission granted", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     companion object {

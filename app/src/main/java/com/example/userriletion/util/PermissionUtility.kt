@@ -2,7 +2,7 @@ package com.example.userriletion.util
 
 import android.Manifest
 import android.content.Context
-import com.vmadalin.easypermissions.EasyPermissions
+import pub.devrel.easypermissions.EasyPermissions
 
 object PermissionUtility {
 
