@@ -22,8 +22,9 @@ class SolusiFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var database: FirebaseFirestore
 //    private val args: SolusiFragmentArgs by navArgs()
-    val images = arrayOf("val_batch0_pred.jpg","val_batch1_pred.jpg","val_batch2_labels.jpg","val_batch2_pred.jpg")
+    val images = arrayOf("brownspot.jpeg", "brownspot4.jpegn@ma")
     val solution = arrayOf("bacterial-leaf", "brown-spot", "leaf-blast")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,10 +45,11 @@ class SolusiFragment : Fragment() {
 
     private fun getDataFromFirebase() {
         database = FirebaseFirestore.getInstance()
-        val fileName = images.random()
         val solusiArray = solution.random()
+        val fileName = images.random()
         val firebaseStorage =
             FirebaseStorage.getInstance().getReference("Image/$fileName").downloadUrl
+
 
         firebaseStorage.addOnSuccessListener { imageUrl ->
             val user = Firebase.auth.currentUser?.uid //Mendapatkan ID User

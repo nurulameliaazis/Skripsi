@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +18,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.userriletion.databinding.FragmentScanBinding
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.task.vision.detector.ObjectDetector
 import java.io.File
@@ -39,7 +44,7 @@ class ScanFragment : Fragment() {
     private val binding get() = _binding!!
     private var photoFile: File? = null
     private lateinit var ImageUri: Uri
-
+    private var imgWithResult: Bitmap? = null
 
 
 
@@ -105,7 +110,7 @@ class ScanFragment : Fragment() {
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val imageBitmap = BitmapFactory.decodeFile(photoFile?.absolutePath)
-            binding.image.setImageBitmap(imageBitmap)
+//            binding.image.setImageBitmap(imageBitmap)
             ImageUri = Uri.fromFile(File(photoFile?.absolutePath))
             runObjectDetection(imageBitmap)
         }
@@ -133,11 +138,64 @@ class ScanFragment : Fragment() {
 
         val detector = ObjectDetector.createFromFileAndOptions(
             requireContext(),
-            "lite-model_efficientdet_lite0_detection_metadata_1.tflite",
+            "model_metadata.tflite",
             options
         )
 
-        detector.detect(image)
+        val results = detector.detect(image)
+
+        val resultToDisplay = results.map {
+            val category = it.categories.first()
+            val text = "${category.label}, ${category.score.times(100).toInt()}%"
+            DetectionResult(it.boundingBox, text)
+        }
+
+        Log.d("ScanFragment", "INI NILAINYA $resultToDisplay")
+
+        imgWithResult = drawDetectionResult(bitmap, resultToDisplay)
+        lifecycleScope.launch(Dispatchers.Main) {
+            context?.let {
+                Glide.with(it).load(imgWithResult).into(binding.image)
+            }
+        }
+    }
+
+    private fun drawDetectionResult(
+        bitmap: Bitmap,
+        detectionResults: List<DetectionResult>
+    ): Bitmap {
+        val outputBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(outputBitmap)
+        val pen = Paint()
+        pen.textAlign = Paint.Align.LEFT
+
+        detectionResults.forEach {
+            pen.color = Color.RED
+            pen.strokeWidth = 8F
+            pen.style = Paint.Style.STROKE
+            val box = it.boundingBox
+            canvas.drawRect(box, pen)
+
+            val tagSize = Rect(0, 0, 0, 0)
+
+            pen.style = Paint.Style.FILL_AND_STROKE
+            pen.color = Color.YELLOW
+            pen.strokeWidth = 2F
+
+            pen.textSize = 96F
+            pen.getTextBounds(it.text, 0, it.text.length, tagSize)
+            val fontSize: Float = pen.textSize * box.width() / tagSize.width()
+
+            if (fontSize < pen.textSize) pen.textSize = fontSize
+
+            var margin = (box.width() - tagSize.width()) / 2.0F
+            if (margin < 0F) margin = 0F
+            canvas.drawText(
+                it.text, box.left + margin,
+                box.top + tagSize.height().times(1F), pen
+            )
+        }
+        return outputBitmap
     }
 
     private fun uploadImage() {
